@@ -1,0 +1,24 @@
+<div class="note-list-header">
+  <h2>Mes Notes</h2>
+  <button class="add-note-btn" (click)="createNewNote()">+ Nouvelle Note</button>
+</div>
+
+<div class="notes-container">
+  <div *ngIf="notes.length === 0" class="no-notes">
+    <p>Aucune note disponible. Créez votre première note !</p>
+  </div>
+  
+  <div *ngFor="let note of notes" 
+       class="note-item" 
+       [class.selected]="note.id === selectedNoteId"
+       (click)="selectNote(note)">
+    <div class="note-content">
+      <h3 class="note-title">{{ note.title }}</h3>
+      <p class="note-preview">{{ note.content.substring(0, 50) }}{{ note.content.length > 50 ? '...' : '' }}</p>
+      <p class="note-date">Modifié le: {{ note.updatedAt | date:'short' }}</p>
+    </div>
+    <button class="delete-btn" (click)="deleteNote($event, note.id)">
+      Supprimer
+    </button>
+  </div>
+</div>
